@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Киіз үй фразеологияда</title>
+<style>
+:root{--bg:#f4f1ea;--ink:#1f2430;--muted:#5d6472;--nav:#16244a;--accent:#2b5fd9;--card:#ffffffee;--gold:#e0a325;--red:#9b1c1c;--line:#d9d3c6}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,"Segoe UI",Roboto,sans-serif}
+header{height:64px;display:flex;align-items:center;gap:16px;padding:0 16px;background:var(--nav);color:#fff}
+.brand{font-weight:700;font-size:18px;white-space:nowrap}
+.brand small{display:block;font-weight:400;opacity:.7;font-size:12px}
+nav{margin-left:auto;display:flex;gap:6px}
+nav button{background:transparent;color:#fff;border:0;border-radius:10px;padding:6px 14px;font:inherit;font-size:15px;cursor:pointer;line-height:1.1}
+nav button small{display:block;font-size:11px;opacity:.7}
+nav button.on{background:var(--accent)}
+main{height:calc(100% - 64px);position:relative}
+.page{display:none;height:100%;overflow:auto}
+.page.on{display:block}
+#model{position:relative;overflow:hidden}
+#c{width:100%;height:100%;display:block;touch-action:none}
+.views{position:absolute;top:14px;left:14px;display:flex;gap:8px}
+.pill{border:0;border-radius:999px;padding:10px 18px;font:inherit;font-weight:600;cursor:pointer;background:#16244a;color:#fff;box-shadow:0 2px 8px #0003}
+.pill.on{background:var(--gold);color:#1f1a0a}
+.bar{position:absolute;left:14px;bottom:14px;display:flex;gap:8px;flex-wrap:wrap;max-width:calc(100% - 28px)}
+.bar button{border:0;border-radius:999px;padding:12px 18px;font:inherit;font-weight:600;cursor:pointer;background:#16244aee;color:#fff;box-shadow:0 2px 8px #0003}
+.bar button.on{background:var(--accent)}
+.parts{position:absolute;top:66px;left:14px;display:flex;flex-direction:column;gap:6px}
+.parts button{border:1px solid #fff8;border-radius:10px;padding:6px 12px;font:inherit;font-size:14px;cursor:pointer;background:#ffffffcc;color:var(--ink);text-align:left}
+.parts button.on{background:var(--gold);border-color:var(--gold)}
+.hint{position:absolute;top:18px;right:16px;background:#0006;color:#fff;padding:6px 12px;border-radius:999px;font-size:13px}
+.credit{position:absolute;right:16px;top:56px;max-width:400px;background:#16244add;color:#fff;padding:8px 14px;border-radius:12px;font-size:13px;text-align:right}
+@media (max-width:760px){.credit{display:none}}
+#VRButton{top:14px!important;bottom:auto!important;background:#2b5fd9!important;border:0!important;font-weight:700!important;opacity:1!important}
+#toast{position:absolute;left:50%;top:70px;transform:translateX(-50%);background:#16244aee;color:#fff;padding:10px 18px;border-radius:12px;font-weight:600;opacity:0;transition:opacity .3s;pointer-events:none;text-align:center}
+#toast.show{opacity:1}
+#info{position:absolute;top:60px;right:14px;bottom:80px;width:min(400px,calc(100% - 28px));background:var(--card);backdrop-filter:blur(6px);border-radius:16px;box-shadow:0 6px 24px #0003;padding:18px 20px;overflow:auto;transition:transform .3s,opacity .3s}
+#info.hidden{opacity:0;transform:translateX(30px);pointer-events:none}
+#info h2{margin:0;font-size:26px}
+#info .lat{color:var(--muted);font-style:italic}
+#info .sym{margin:10px 0;padding:8px 12px;background:#fff4d6;border-left:4px solid var(--gold);border-radius:6px;font-weight:600}
+#info h3{font-size:15px;margin:16px 0 6px;color:var(--red);text-transform:uppercase;letter-spacing:.04em}
+.ph{padding:8px 0;border-top:1px solid var(--line)}
+.ph b{display:block}.ph i{color:var(--muted);font-size:14px}
+.close{position:absolute;top:10px;right:12px;border:0;background:#0001;border-radius:50%;width:34px;height:34px;font-size:20px;cursor:pointer}
+.doc{max-width:980px;margin:0 auto;padding:28px 16px 60px}
+.doc h1{font-size:30px;margin:0 0 6px}
+.doc h2{margin-top:32px;color:var(--nav)}
+.lead{color:var(--muted);font-size:18px}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;margin:12px 0}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--nav);color:#fff;font-weight:600}
+td.kz{font-weight:700}
+.bad{color:#b3261e}.good{color:#1b7a3a;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.tile{background:#fff;border-radius:12px;padding:14px;border-top:4px solid var(--gold)}
+.tile b{display:block;font-size:18px}
+@media (max-width:760px){
+ header{height:auto;flex-wrap:wrap;padding:8px 16px}.brand small{display:none}
+ nav{margin-left:0;width:100%;overflow-x:auto}
+ main{height:calc(100% - 104px)}
+ .parts{display:none}.hint{display:none}
+ #info{top:auto;bottom:70px;height:52%;right:16px;left:16px;width:auto}
+ .bar button{padding:10px 12px;font-size:14px}
+ .pill{padding:8px 12px;font-size:14px}
+}
+</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+</head>
+<body>
+<header>
+ <div class="brand">Киіз үй — қазақ фразеологиясында<small>The Yurt in Kazakh Phraseology</small></div>
+ <nav>
+  <button data-page="model" class="on">3D модель<small>3D model</small></button>
+  <button data-page="phr">Фразеология<small>Phraseology</small></button>
+  <button data-page="tr">Аударма<small>Translation</small></button>
+  <button data-page="about">Жоба туралы<small>About</small></button>
+ </nav>
+</header>
+<main>
+<section id="model" class="page on">
+ <canvas id="c"></canvas>
+ <div class="views"><button class="pill on" id="vOut">Сыртқы көрініс · Exterior</button><button class="pill" id="vIn">Ішкі көрініс · Interior</button></div>
+ <div class="parts" id="chips"></div>
+ <div class="hint">Бөлікті басыңыз · Tap a part</div>
+ <div class="credit">М.Құсайынов атындағы Ақтөбе облыстық дарынды балаларға арналған мамандандырылған лицей-интернат<br>Жетекшісі: Баешева Жанаргул Айсагимовна, педагог-зерттеуші, магистр</div>
+ <div id="toast"></div>
+ <aside id="info" class="hidden"></aside>
+ <div class="bar">
+  <button id="bExp">Құрылымды бөлшектеу · Disassemble</button>
+  <button id="bAsm">Қайта жинау · Assemble</button>
+  <button id="bRot">Айналдыру · Rotate</button>
+  <button id="bHome">Бастапқы · Reset</button>
+ </div>
+</section>
+
+<section id="phr" class="page"><div class="doc">
+ <h1>Киіз үй фразеологиясы</h1>
+ <p class="lead">Phraseological units built around the structural parts of the yurt. Each part of the dwelling became a metaphor for character, family and society.</p>
+ <div id="phrTables"></div>
+</div></section>
+
+<section id="tr" class="page"><div class="doc">
+ <h1>Ethnotranslation: Kazakh → English</h1>
+ <p class="lead">A literal calque destroys the cultural meaning of yurt metaphors. Functional-conceptual equivalence and contextual explication keep it.</p>
+ <table>
+  <tr><th>№</th><th>Kazakh phraseologism</th><th>Literal (calque, incorrect)</th><th>Functional ethnotranslation (correct)</th><th>Linguacultural explanation</th></tr>
+  <tr><td>1</td><td class="kz">Шаңырағың ортасына түскір!<br><i>Shañyrağıñ ortasyna tüskır!</i></td><td class="bad">May your wooden circle fall into the middle!</td><td class="good">May your house and family lineage suffer total destruction!</td><td>An ethno-curse: remaining without descendants, total annihilation of the domestic microcosm.</td></tr>
+  <tr><td>2</td><td class="kz">Қара шаңырақ<br><i>Qara shañyraq</i></td><td class="bad">Black wooden dome</td><td class="good">Ancestral home / the main lineage hearth</td><td>“Qara” means not colour but sacredness, ancient origin and the venerated hearth of the lineage.</td></tr>
+  <tr><td>3</td><td class="kz">Уығы шайқалу<br><i>Uyğı shayqalu</i></td><td class="bad">To have one’s yurt poles shaken</td><td class="good">To experience severe instability in one’s life or family</td><td>The uyq is the main support of the dome; the phrase depicts losing foundational support.</td></tr>
+  <tr><td>4</td><td class="kz">Босаға аттау<br><i>Bosağa attau</i></td><td class="bad">To step over the threshold</td><td class="good">To enter a new family through marriage / to cross a sacred boundary</td><td>Marks the transition and adaptation of a bride (kelın) into her new family.</td></tr>
+  <tr><td>5</td><td class="kz">Шаңырақ көтеру<br><i>Shañyraq kötörü</i></td><td class="bad">To raise a wooden dome</td><td class="good">To establish a family / lay the foundation of a household</td><td>Conceptual adaptation: “shañyraq” is a synecdoche for the family as an institution.</td></tr>
+  <tr><td>6</td><td class="kz">Керегесі кең, босағасы берік<br><i>Keregesi keñ, bosağasy berık</i></td><td class="bad">Its lattice is wide, its doorpost is firm</td><td class="good">A household of broad hospitality, stability and unbreakable cohesion</td><td>Descriptive translation: kerege = openness, bosağa = internal stability.</td></tr>
+  <tr><td>7</td><td class="kz">Төрдегі басың босағаға домаламасын<br><i>Tördegı basyñ bosağağa domalamasyn</i></td><td class="bad">May your head at the tör not roll to the threshold</td><td class="good">May you never fall from honour into humiliation</td><td>Cultural equivalent: the tör–bosağa hierarchy is mapped onto social status.</td></tr>
+ </table>
+ <h2>Three strategies</h2>
+ <div class="grid">
+  <div class="tile"><b>1. Conceptual adaptation</b>Replace the image with an English institutional metaphor (establish a family).</div>
+  <div class="tile"><b>2. Descriptive translation</b>Unpack the ethnopsychological meaning with cultural annotation.</div>
+  <div class="tile"><b>3. Functional equivalent</b>Map the Kazakh spatial hierarchy onto English concepts of status and honour.</div>
+ </div>
+</div></section>
+
+<section id="about" class="page"><div class="doc">
+ <h1>The Yurt in Kazakh Phraseology</h1>
+ <p class="lead">Language as a reflection of nomadic culture</p>
+ <div class="tile" style="margin-top:14px"><b>М.Құсайынов атындағы Ақтөбе облыстық дарынды балаларға арналған мамандандырылған лицей-интернат</b>Жетекшісі: Баешева Жанаргул Айсагимовна, педагог-зерттеуші, магистр</div>
+ <h2>Problem</h2>
+ <p>For the Kazakh people the yurt was never only a dwelling: it was a micro-model of the cosmos, the family hierarchy and the state. Phraseological units built on its parts — shañyraq, kerege, uyq, bosağa — encode the nation's ethical and philosophical norms. When such units are translated into English word for word, this cultural code is lost.</p>
+ <h2>Aim</h2>
+ <p>To reveal how the structural parts of the yurt are transformed into phraseological units of the Kazakh language, and to determine adequate strategies for translating them into English.</p>
+ <h2>Methods</h2>
+ <div class="grid">
+  <div class="tile"><b>Ethnolinguistic analysis</b>Yurt lexicon and its metaphorical meanings.</div>
+  <div class="tile"><b>Linguacultural analysis</b>Tör, bosağa, oshaq as a model of social hierarchy.</div>
+  <div class="tile"><b>Comparative translation analysis</b>Literal calque vs functional ethnotranslation.</div>
+  <div class="tile"><b>3D visualisation</b>Each part of the model is linked to its phraseology.</div>
+ </div>
+ <h2>Key conclusions</h2>
+ <div class="grid">
+  <div class="tile"><b>Шаңырақ</b>Symbol of peace, divine benevolence and continuity of generations.</div>
+  <div class="tile"><b>Кереге</b>Symbol of unity and structural equity.</div>
+  <div class="tile"><b>Уық</b>Symbol of responsibility and duty.</div>
+  <div class="tile"><b>Босаға</b>Symbol of humility and virtue.</div>
+ </div>
+ <p>Just as the yurt frame is built without a single metal nail, the phraseology of its parts forms a system bound together by the inner laws of the language.</p>
+ <h2>Scholarly basis</h2>
+ <p>I. Keñesbaev (phraseology as cultural artifacts), Ä. Qaidar (“Kazakhs in the World of the Mother Tongue”), N. Uäli (“Ethnocultural Lexicography”), E. Zhanpeiısov (“Ethnolinguistic Character of Kazakh Prose”), W. von Humboldt, S. Elubai (“Aq boz üy”).</p>
+</div></section>
+</main>
+
+<script type="module">
+import * as THREE from 'three';
+import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
+import {VRButton} from 'three/addons/webxr/VRButton.js';
+import {XRControllerModelFactory} from 'three/addons/webxr/XRControllerModelFactory.js';
+
+/* ---------- content ---------- */
+const INFO={
+ kerege:{kz:'Кереге',lat:'Kerege',en:'Latticed wall frame',sym:'Бірлік · Unity and structural equity',
+  desc:'The main wall of the yurt, made of bent wooden slats (zhelı): long erıs (14), shorter balashyq (9) and the smallest sağanaq (9). The diamond openings bound with rawhide (kök) are called köz — “eyes”. Zhelköz kerege is light for migration; torköz kerege withstands storms. A single section cannot stand alone — only when bound to the others.',
+  phr:[['Керегесі кең','Keregesi keñ','An open, hospitable, prosperous household with wide kinship ties'],['Керегесін сөгу','Keregesin sögu','To shatter the unity of a nation or family'],['Керегеге асу','Keregege asu','To treasure, hold something in high regard'],['Керегесі ағаш, уығы тал','Keregesi ağash, uyğı tal','A durable, strong and wealthy home']]},
+ uyq:{kz:'Уық',lat:'Uyq',en:'Roof poles',sym:'Жауапкершілік · Support, obligation, responsibility',
+  desc:'Curved poles that connect the kerege to the shañyraq and hold the crown. The bend is the iyq (“shoulder”), the part to the crown is the qar (“arm”), the tip in the shañyraq socket is the qalam, and the end tied to the kerege is the doğalai.',
+  phr:[['Уығы берік','Uyğı berık','A family with firm support and stability'],['Уығы бос','Uyğı bos','An irresponsible person who cannot fulfil obligations'],['Уығы шайқалу','Uyğı shayqalu','Loss of inner stability, trust and harmony'],['Уықтай шаншылу','Uyqtai shanshylu','To stand perfectly upright and unmoving'],['Уығын асу','Uyğın asu','To lay the main support of an undertaking; begin building a home']]},
+ shanyraq:{kz:'Шаңырақ',lat:'Shañyraq',en:'Wooden crown',sym:'Отбасы · Sun, cosmos, Motherland, continuity',
+  desc:'The crowning circle at the top of the yurt — the symbol of the Sun, the Cosmos, the Motherland and the continuity of generations. It was raised in total silence, and inflated bladders were tied to it so that blessing (qūt) would pour down through its opening.',
+  phr:[['Шаңырақ көтеру','Shañyraq kötörü','To establish a new household, to marry'],['Отау шаңырағы','Otau shañyrağı','A newly founded young family'],['Қара шаңырақ','Qara shañyraq','The ancestral home inherited by the youngest son'],['Шаңырағың биік болсын!','Shañyrağıñ biik bolsyn!','Blessing: may your family’s dignity stay high'],['Шаңырағың шайқалмасын','Shañyrağıñ shayqalmasyn','Wish to preserve the family’s honour and harmony'],['Шаңырағы ортасына түсу','Shañyrağı ortasyna tüsu','Utter destruction of a family, a great tragedy']]},
+ door:{kz:'Есік · Босаға',lat:'Esık · Bosağa',en:'Door and doorposts',sym:'Кішіпейілділік · Humility and a new beginning',
+  desc:'The door (syqyrlauyq) has a lintel (mañdaisha), two doorposts (bosağa), a threshold (tabaldyryq) and two panels (zhaqtau). The bosağa is the boundary between the unpredictable outer world and the warm sanctuary of the family.',
+  phr:[['Босаға аттау','Bosağa attau','To enter a new family as a bride'],['Босағасы берік','Bosağasy berık','A resilient, well-founded family'],['Босағада қалу','Bosağada qalu','To be overlooked, to hold a low position'],['Босағасын майлау','Bosağasyn mailau','Anointing the doorposts for blessing and prosperity of a new home']]},
+ tuyrlyq:{kz:'Туырлық',lat:'Tuyrlyq',en:'Wall felt covering',sym:'Негіз · Foundation and protection',
+  desc:'Felt that wraps the kerege, tied with tuyrlyq bau and decorated with ornamental bands (basqūr). Its lower edge rests on the irge — the base of the yurt, which in language became a symbol of nationhood.',
+  phr:[['Іргесі сөгілмеу','Irgesi sögilmeu','Unbroken unity (lit. “its base remaining unripped”)'],['Іргелі ел','Irgeli el','A prominent nation with a solid foundation']]},
+ uzik:{kz:'Үзік',lat:'Üzık',en:'Roof felt covering',sym:'Қорған · Shelter of the family',
+  desc:'Felt pieces that cover the dome over the uyq poles, fastened with üzık bau. Together with tuyrlyq, tündık and ırgelık they form the felt “clothing” of the yurt made from livestock products.',phr:[]},
+ tundik:{kz:'Түндік',lat:'Tündık',en:'Crown felt covering',sym:'Жарық · Light and air',
+  desc:'A felt that covers the opening of the shañyraq. It is pulled open with tündık bau cords for light and smoke and closed at night or in bad weather.',phr:[]},
+ tor:{kz:'Төр',lat:'Tör',en:'Place of honour',sym:'Құрмет · Elevated status and dignity',
+  desc:'The most honoured part of the yurt, opposite the entrance, where chests and folded bedding stand. It is reserved for the elder (aqsaqal) and esteemed guests. To the left of the entrance is the men’s side (saddle, weapons), to the right the women’s side (utensils, tus kiiz).',
+  phr:[['Төрге оз','Törge oz','Pass forward to the place of honour'],['Төрдегі басың босағаға домаламасын','Tördegı basyñ bosağağa domalamasyn','May you never fall from honour into humiliation'],['Төр — қонақтікі, босаға — келіндікі','Tör — qonaqtykı, bosağa — kelındıkı','The place of honour is the guest’s, the threshold the bride’s'],['Қонақ келсе, құт келер','Qonaq kelse, qūt keler','The arrival of a guest brings divine favour']]},
+ oshaq:{kz:'Ошақ',lat:'Oshaq',en:'Hearth',sym:'Өмір · The axis of the universe',
+  desc:'The hearth in the exact centre of the yurt — the symbol of life, warmth and the family spirit. Sitting in a circle around it creates “circular communication” that reduces family conflicts.',
+  phr:[['Ошағымыз сөнбесін','Oshağymyz sönbesın','May our hearth never go out (emotional stability of the family)'],['Отты өшірмеу','Otty öshırmeu','To keep the family line alive'],['Ошақты шайқалтпау','Oshaqty shayqaltpau','Not to shake the family foundation']]}
+};
+const ORDER=['kerege','uyq','shanyraq','door','tuyrlyq','uzik','tundik','tor','oshaq'];
+
+/* ---------- three setup ---------- */
+const canvas=document.getElementById('c');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+const scene=new THREE.Scene();
+scene.background=new THREE.Color(0xbfe3f5);scene.fog=new THREE.Fog(0xbfe3f5,35,90);
+const camera=new THREE.PerspectiveCamera(45,1,0.05,200);
+const HOME={p:new THREE.Vector3(9,5.5,11),t:new THREE.Vector3(0,1.6,0)};
+camera.position.copy(HOME.p);
+const rig=new THREE.Group();rig.add(camera);scene.add(rig);
+renderer.xr.enabled=true;renderer.xr.setReferenceSpaceType('local-floor');
+document.getElementById('model').appendChild(VRButton.createButton(renderer));
+const controls=new OrbitControls(camera,canvas);
+controls.target.copy(HOME.t);controls.enableDamping=true;controls.maxPolarAngle=Math.PI*.495;controls.minDistance=4;controls.maxDistance=30;
+scene.add(new THREE.HemisphereLight(0xffffff,0x6a8f3a,1.0));
+const sun=new THREE.DirectionalLight(0xffffff,1.8);sun.position.set(8,14,7);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);
+Object.assign(sun.shadow.camera,{left:-12,right:12,top:12,bottom:-12});scene.add(sun);
+const inner=new THREE.PointLight(0xffd9a0,0,14,1);inner.position.set(0,2.4,0);scene.add(inner);
+const ground=new THREE.Mesh(new THREE.CircleGeometry(80,64),new THREE.MeshLambertMaterial({color:0x7fbf4d}));
+ground.rotation.x=-Math.PI/2;ground.receiveShadow=true;scene.add(ground);
+
+/* ---------- textures ---------- */
+function canvasTex(w,h,draw){const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');draw(x,w,h);
+ const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;t.wrapS=THREE.RepeatWrapping;t.anisotropy=8;return t;}
+function ram(x,cx,cy,s,c){x.strokeStyle=c;x.lineWidth=s*.14;x.lineCap='round';x.beginPath();
+ x.moveTo(cx,cy+s*.5);x.lineTo(cx,cy-s*.1);
+ for(const d of[-1,1]){x.moveTo(cx,cy-s*.1);x.bezierCurveTo(cx,cy-s*.62,cx+d*s*.72,cy-s*.62,cx+d*s*.62,cy-s*.15);x.bezierCurveTo(cx+d*s*.56,cy+s*.16,cx+d*s*.24,cy+s*.1,cx+d*s*.3,cy-s*.1);}
+ x.stroke();}
+function felt(x,w,h,col='#f3eee3'){x.fillStyle=col;x.fillRect(0,0,w,h);for(let i=0;i<w*h/180;i++){x.fillStyle=Math.random()<.5?'#00000008':'#ffffff10';x.fillRect(Math.random()*w,Math.random()*h,2,2);}}
+function band(x,w,y,h,n,bg,fg){x.fillStyle=bg;x.fillRect(0,y,w,h);x.fillStyle=fg;x.fillRect(0,y,w,h*.09);x.fillRect(0,y+h*.91,w,h*.09);const s=w/n;for(let i=0;i<n;i++)ram(x,s*i+s/2,y+h*.56,h*.6,fg);}
+const tuyTex=canvasTex(2048,256,(x,w,h)=>{felt(x,w,h);band(x,w,26,62,30,'#f3eee3','#8e1d1d');band(x,w,168,62,30,'#f3eee3','#8e1d1d');});
+const uzTex=canvasTex(2048,512,(x,w,h)=>{felt(x,w,h);band(x,w,430,64,34,'#f3eee3','#8e1d1d');});
+const doorTex=canvasTex(256,512,(x,w,h)=>{x.fillStyle='#8b1a1a';x.fillRect(0,0,w,h);x.strokeStyle='#e0a325';x.lineWidth=10;x.strokeRect(14,14,w-28,h-28);x.lineWidth=4;x.strokeRect(34,34,w-68,h-68);for(let i=0;i<3;i++)ram(x,w/2,110+i*150,90,'#e0a325');});
+const carpetTex=canvasTex(1024,1024,(x,w,h)=>{x.fillStyle='#a31f24';x.fillRect(0,0,w,h);const c=w/2;
+ [[500,'#1f2f5a',40],[440,'#e0a325',10],[300,'#1f2f5a',26],[250,'#e0a325',8],[110,'#e0a325',8]].forEach(([r,col,lw])=>{x.strokeStyle=col;x.lineWidth=lw;x.beginPath();x.arc(c,c,r,0,7);x.stroke();});
+ for(let i=0;i<16;i++){x.save();x.translate(c,c);x.rotate(i/16*Math.PI*2);ram(x,0,-370,70,'#f3d38a');x.restore();}
+ for(let i=0;i<8;i++){x.save();x.translate(c,c);x.rotate(i/8*Math.PI*2);ram(x,0,-180,60,'#f3d38a');x.restore();}});
+
+/* ---------- parts ---------- */
+const parts={};
+function part(key,offset,scale){const g=new THREE.Group();scene.add(g);parts[key]={group:g,offset:new THREE.Vector3(...offset),scale,t:0,target:0,mats:[]};return g;}
+function mat(key,o){const m=new THREE.MeshStandardMaterial({roughness:.85,metalness:0,...o});parts[key].mats.push(m);return m;}
+function add(key,geo,m){const mesh=new THREE.Mesh(geo,m);mesh.castShadow=mesh.receiveShadow=true;mesh.userData.part=key;parts[key].group.add(mesh);return mesh;}
+const UP=new THREE.Vector3(0,1,0);
+function rodGeo(a,b,r,seg=5){const d=b.clone().sub(a);const g=new THREE.CylinderGeometry(r,r,d.length(),seg,1);
+ return g.applyMatrix4(new THREE.Matrix4().compose(a.clone().addScaledVector(d,.5),new THREE.Quaternion().setFromUnitVectors(UP,d.clone().normalize()),new THREE.Vector3(1,1,1)));}
+const R=3,H=1.6,CY=3.3,CR=.62,DH=Math.asin(.52/R);
+const P=(a,r,y)=>new THREE.Vector3(r*Math.sin(a),y,r*Math.cos(a));
+
+// static floor carpet
+const floorMesh=new THREE.Mesh(new THREE.CircleGeometry(R-.03,64),new THREE.MeshStandardMaterial({map:carpetTex,roughness:1}));floorMesh.rotation.x=-Math.PI/2;floorMesh.position.y=.012;floorMesh.receiveShadow=true;scene.add(floorMesh);
+
+// kerege
+{part('kerege',[0,0,0]);const geos=[];const a0=DH,a1=2*Math.PI-DH,span=.55,step=.11,seg=6;
+ for(const dir of[1,-1])for(let s=a0-span;s<a1+span;s+=step)for(let k=0;k<seg;k++){
+  const u1=k/seg,u2=(k+1)/seg,b1=s+dir*span*u1,b2=s+dir*span*u2;
+  if(Math.min(b1,b2)<a0||Math.max(b1,b2)>a1)continue;
+  const rr=R+dir*.014;geos.push(rodGeo(P(b1,rr,H*u1),P(b2,rr,H*u2),.018,4));}
+ geos.push(rodGeo(P(a0,R,0),P(a0,R,H),.03,6),rodGeo(P(a1,R,0),P(a1,R,H),.03,6));
+ add('kerege',mergeGeometries(geos),mat('kerege',{color:0xc8742c}));}
+
+// uyq
+{part('uyq',[0,.75,0]);const geos=[],N=44;
+ for(let i=0;i<N;i++){const a=(i+.5)/N*Math.PI*2;geos.push(new THREE.TubeGeometry(new THREE.QuadraticBezierCurve3(P(a,R-.02,H),P(a,R-.5,H+.78),P(a,CR,CY)),10,.028,5,false));}
+ add('uyq',mergeGeometries(geos),mat('uyq',{color:0xd9822b}));}
+
+// shanyraq
+{part('shanyraq',[0,1.3,0]);const m=mat('shanyraq',{color:0x9a4a1e});
+ const ring=add('shanyraq',new THREE.TorusGeometry(CR,.07,10,48),m);ring.rotation.x=Math.PI/2;ring.position.y=CY;
+ const geos=[];for(const x of[-.3,0,.3]){const z=Math.sqrt(CR*CR-x*x);
+  geos.push(new THREE.TubeGeometry(new THREE.QuadraticBezierCurve3(new THREE.Vector3(x,CY,-z),new THREE.Vector3(x,CY+.6,0),new THREE.Vector3(x,CY,z)),16,.03,6,false));
+  geos.push(new THREE.TubeGeometry(new THREE.QuadraticBezierCurve3(new THREE.Vector3(-z,CY,x),new THREE.Vector3(0,CY+.6,x),new THREE.Vector3(z,CY,x)),16,.03,6,false));}
+ add('shanyraq',mergeGeometries(geos),m);}
+
+// door
+{part('door',[0,0,2.6]);const zc=R*Math.cos(DH)+.03;const fm=mat('door',{color:0x7a2e12}),pm=mat('door',{map:doorTex});
+ for(const x of[-.56,.56])add('door',new THREE.BoxGeometry(.1,1.56,.14),fm).position.set(x,.78,zc);
+ add('door',new THREE.BoxGeometry(1.26,.12,.16),fm).position.set(0,1.58,zc);
+ add('door',new THREE.BoxGeometry(1.2,.08,.16),fm).position.set(0,.04,zc);
+ for(const s of[-1,1])add('door',new THREE.BoxGeometry(.5,1.42,.05),pm).position.set(s*.255,.79,zc);}
+
+// tuyrlyq (expands outward when disassembled)
+{part('tuyrlyq',[0,.2,0],1.42);add('tuyrlyq',new THREE.CylinderGeometry(R+.05,R+.05,H,96,1,true,DH,Math.PI*2-2*DH),mat('tuyrlyq',{map:tuyTex,side:THREE.DoubleSide})).position.y=H/2;}
+
+// uzik
+{part('uzik',[0,3.9,0]);const c=new THREE.QuadraticBezierCurve3(new THREE.Vector3(R+.06,H-.03,0),new THREE.Vector3(R-.44,H+.85,0),new THREE.Vector3(CR+.08,CY+.07,0));
+ add('uzik',new THREE.LatheGeometry(c.getPoints(24).map(p=>new THREE.Vector2(p.x,p.y)),96),mat('uzik',{map:uzTex,side:THREE.DoubleSide}));}
+
+// tundik
+{part('tundik',[0,4.5,0]);const rs=1.3,th=.62;const m=add('tundik',new THREE.SphereGeometry(rs,40,8,0,Math.PI*2,0,th),mat('tundik',{color:0xe6dcc8,side:THREE.DoubleSide}));m.position.y=CY+.12-rs*Math.cos(th);}
+
+// tor: chests + bedding + seat
+{part('tor',[0,0,0]);const ch=mat('tor',{map:doorTex}),cols=[0x2f4d8a,0xd9a441,0x8e1d1d,0x3d7a4a,0xe9e2d2];
+ for(const x of[-.85,.85]){add('tor',new THREE.BoxGeometry(1.3,.6,.55),ch).position.set(x,.3,-2.35);}
+ cols.forEach((c,i)=>add('tor',new THREE.BoxGeometry(2.9,.14,.5),mat('tor',{color:c})).position.set(0,.67+i*.14,-2.35));
+ add('tor',new THREE.BoxGeometry(2.2,.06,1),mat('tor',{color:0x5b2a6e})).position.set(0,.04,-1.5);}
+
+// oshaq
+{part('oshaq',[0,0,0]);const st=mat('oshaq',{color:0x6f6a62}),ir=mat('oshaq',{color:0x2a2a2a,metalness:.6,roughness:.5});
+ add('oshaq',new THREE.TorusGeometry(.34,.07,8,24),st).rotation.x=Math.PI/2;parts.oshaq.group.children[0].position.y=.06;
+ const em=add('oshaq',new THREE.CircleGeometry(.3,24),mat('oshaq',{color:0xff7a1a,emissive:0xff5a00,emissiveIntensity:1.2}));em.rotation.x=-Math.PI/2;em.position.y=.04;
+ const kz=add('oshaq',new THREE.SphereGeometry(.3,24,12,0,Math.PI*2,Math.PI/2,Math.PI/2),ir);kz.position.y=.62;
+ for(let i=0;i<3;i++){const a=i/3*Math.PI*2;add('oshaq',rodGeo(P(a,.45,0),P(a,.05,.66),.02),ir);}}
+
+/* ---------- interaction ---------- */
+const $=id=>document.getElementById(id);
+let selected=null,exploded=false,view='out',camT=null,timers=[];
+function select(key){if(selected)parts[selected].mats.forEach(m=>{m.emissive.setHex(m.userData.e??0);m.emissiveIntensity=m.userData.ei??1;});
+ selected=key;document.querySelectorAll('.parts button').forEach(b=>b.classList.toggle('on',b.dataset.k===key));
+ vrInfo(key);
+ if(!key){$('info').classList.add('hidden');return;}
+ parts[key].mats.forEach(m=>{m.userData.e??=m.emissive.getHex();m.userData.ei??=m.emissiveIntensity;m.emissive.setHex(0xffc400);m.emissiveIntensity=.45;});
+ const d=INFO[key];
+ $('info').innerHTML=`<button class="close" aria-label="Close">×</button><h2>${d.kz}</h2><div class="lat">${d.lat} — ${d.en}</div><div class="sym">${d.sym}</div><p>${d.desc}</p>`+
+  (d.phr.length?`<h3>Фразеологизмдер · Phraseology</h3>`+d.phr.map(p=>`<div class="ph"><b>${p[0]}</b><i>${p[1]}</i><div>${p[2]}</div></div>`).join(''):'');
+ $('info').classList.remove('hidden');$('info').querySelector('.close').onclick=()=>select(null);}
+$('chips').innerHTML=ORDER.map(k=>`<button data-k="${k}">${INFO[k].kz}</button>`).join('');
+$('chips').onclick=e=>{const k=e.target.dataset.k;if(!k)return;if((k==='tor'||k==='oshaq')&&view==='out'&&!exploded)setView('in');select(k);};
+
+const ray=new THREE.Raycaster(),ptr=new THREE.Vector2();let down=null;
+canvas.addEventListener('pointerdown',e=>{down=[e.clientX,e.clientY];stopRotate();});
+canvas.addEventListener('pointerup',e=>{if(!down||Math.hypot(e.clientX-down[0],e.clientY-down[1])>6)return;
+ const r=canvas.getBoundingClientRect();ptr.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);ray.setFromCamera(ptr,camera);
+ const hit=ray.intersectObjects(Object.values(parts).map(p=>p.group),true)[0];select(hit?hit.object.userData.part:null);});
+
+function toast(t){const el=$('toast');el.textContent=t;el.classList.add('show');clearTimeout(toast.h);toast.h=setTimeout(()=>el.classList.remove('show'),1800);}
+function tweenCam(p,t,d=1.2,done){camT={k:0,d,p0:camera.position.clone(),p1:p,t0:controls.target.clone(),t1:t,done};}
+const ASM=['door','shanyraq','uyq','tuyrlyq','uzik','tundik'];
+const STEP={door:'1. Есік орнатылады · The door frame is set',shanyraq:'2. Шаңырақ көтеріледі · The crown is raised',uyq:'3. Уық шаншылады · Roof poles are inserted',tuyrlyq:'4. Туырлық жабылады · Wall felts wrap the kerege',uzik:'5. Үзік жабылады · Roof felts cover the dome',tundik:'6. Түндік жабылады · Tündik covers the crown'};
+function clearTimers(){timers.forEach(clearTimeout);timers=[];}
+function disassemble(){clearTimers();exploded=true;$('bExp').classList.add('on');if(view==='in')setView('out');
+ [...ASM].reverse().forEach((k,i)=>timers.push(setTimeout(()=>parts[k].target=1,i*350)));
+ tweenCam(new THREE.Vector3(12,8,15),new THREE.Vector3(0,3.4,0),1.6);toast('Құрылым бөлшектелді · Structure disassembled');}
+function assemble(){clearTimers();if(view==='in')setView('out');
+ if(!exploded){ASM.forEach(k=>parts[k].t=parts[k].target=1);tweenCam(new THREE.Vector3(12,8,15),new THREE.Vector3(0,3.4,0),1);}
+ exploded=false;$('bExp').classList.remove('on');
+ toast('Кереге жайылады · The kerege is set up');
+ ASM.forEach((k,i)=>timers.push(setTimeout(()=>{parts[k].target=0;toast(STEP[k]);},900+i*1300)));
+ timers.push(setTimeout(()=>tweenCam(HOME.p.clone(),HOME.t.clone(),1.6),900+ASM.length*1300));}
+function setView(v){view=v;$('vOut').classList.toggle('on',v==='out');$('vIn').classList.toggle('on',v==='in');
+ if(v==='in'){if(exploded){clearTimers();ASM.forEach(k=>parts[k].target=0);exploded=false;$('bExp').classList.remove('on');}
+  inner.intensity=3;controls.minDistance=.2;controls.maxDistance=30;controls.maxPolarAngle=Math.PI*.7;
+  tweenCam(new THREE.Vector3(0,1.9,2.2),new THREE.Vector3(0,.9,-.6),1.4,()=>{controls.maxDistance=3.2;});}
+ else{inner.intensity=0;controls.maxDistance=30;controls.maxPolarAngle=Math.PI*.495;
+  tweenCam(HOME.p.clone(),HOME.t.clone(),1.4,()=>{controls.minDistance=4;});}}
+function stopRotate(){controls.autoRotate=false;$('bRot').classList.remove('on');}
+$('vOut').onclick=()=>setView('out');$('vIn').onclick=()=>setView('in');
+$('bExp').onclick=()=>exploded?assemble():disassemble();
+$('bAsm').onclick=assemble;
+$('bRot').onclick=()=>{controls.autoRotate=!controls.autoRotate;controls.autoRotateSpeed=1.2;$('bRot').classList.toggle('on',controls.autoRotate);};
+$('bHome').onclick=()=>{clearTimers();ASM.forEach(k=>parts[k].target=0);exploded=false;$('bExp').classList.remove('on');select(null);setView('out');};
+
+/* ---------- VR ---------- */
+const vrPanel=(()=>{const c=document.createElement('canvas');c.width=1024;c.height=1280;const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;
+ const m=new THREE.Mesh(new THREE.PlaneGeometry(.8,1),new THREE.MeshBasicMaterial({map:t,transparent:true}));m.visible=false;scene.add(m);return{c,t,m};})();
+function wrap(x,text,X,Y,maxW,lh){let line='';for(const w of text.split(' ')){const s=line?line+' '+w:w;if(x.measureText(s).width>maxW&&line){x.fillText(line,X,Y);Y+=lh;line=w;}else line=s;}if(line){x.fillText(line,X,Y);Y+=lh;}return Y;}
+function drawPanel(title,sub,sym,body,phr){const{c,t}=vrPanel,x=c.getContext('2d'),F='"Segoe UI",Roboto,sans-serif';x.clearRect(0,0,1024,1280);
+ x.fillStyle='rgba(255,255,255,.95)';x.beginPath();x.roundRect(0,0,1024,1280,48);x.fill();
+ let y=110;x.fillStyle='#16244a';x.font='bold 68px '+F;x.fillText(title,56,y);y+=62;
+ x.fillStyle='#5d6472';x.font='italic 38px '+F;y=wrap(x,sub,56,y,912,46)+10;
+ if(sym){x.fillStyle='#fff4d6';x.fillRect(56,y-10,912,66);x.fillStyle='#1f2430';x.font='bold 32px '+F;x.fillText(sym,76,y+34);y+=92;}
+ x.fillStyle='#1f2430';x.font='33px '+F;y=wrap(x,body,56,y+10,912,43)+18;
+ for(const p of phr){if(y>1190)break;x.fillStyle='#9b1c1c';x.font='bold 35px '+F;x.fillText(p[0],56,y+10);y+=50;x.fillStyle='#1f2430';x.font='30px '+F;y=wrap(x,'— '+p[2],56,y,912,38)+12;}
+ x.fillStyle='#5d6472';x.font='26px '+F;x.fillText('Trigger → close',56,1250);t.needsUpdate=true;}
+function showPanel(){const m=vrPanel.m,cam=renderer.xr.getCamera(),p=new THREE.Vector3(),q=new THREE.Quaternion();cam.getWorldPosition(p);cam.getWorldQuaternion(q);
+ const dir=new THREE.Vector3(0,0,-1).applyQuaternion(q);dir.y=0;dir.normalize();m.position.copy(p).addScaledVector(dir,1.1);m.position.y=p.y-.05;m.lookAt(p.x,m.position.y,p.z);m.visible=true;}
+function vrInfo(key){if(!renderer.xr.isPresenting)return;if(!key){vrPanel.m.visible=false;return;}const d=INFO[key];drawPanel(d.kz,d.lat+' — '+d.en,d.sym,d.desc,d.phr);showPanel();}
+const vrTargets=[...Object.values(parts).map(p=>p.group),ground,floorMesh,vrPanel.m];
+const marker=new THREE.Mesh(new THREE.RingGeometry(.18,.25,32),new THREE.MeshBasicMaterial({color:0x2b5fd9}));marker.rotation.x=-Math.PI/2;marker.visible=false;scene.add(marker);
+const cmf=new XRControllerModelFactory(),ctrls=[],tmpM=new THREE.Matrix4();
+for(let i=0;i<2;i++){const c=renderer.xr.getController(i);
+ const line=new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(),new THREE.Vector3(0,0,-1)]),new THREE.LineBasicMaterial({color:0xffc400}));line.scale.z=8;c.add(line);
+ c.addEventListener('connected',e=>{line.visible=e.data.targetRayMode!=='screen';});
+ c.addEventListener('selectstart',()=>vrSelect(c));
+ c.addEventListener('squeezestart',()=>exploded?assemble():disassemble());
+ rig.add(c);const g=renderer.xr.getControllerGrip(i);g.add(cmf.createControllerModel(g));rig.add(g);ctrls.push(c);}
+function ctrlHit(c){tmpM.identity().extractRotation(c.matrixWorld);ray.ray.origin.setFromMatrixPosition(c.matrixWorld);ray.ray.direction.set(0,0,-1).applyMatrix4(tmpM);ray.far=40;return ray.intersectObjects(vrTargets,true)[0];}
+function vrSelect(c){const h=ctrlHit(c);if(!h)return;
+ if(h.object===vrPanel.m){select(null);return;}
+ const k=h.object.userData.part;if(k){select(k);return;}
+ if(h.object===ground||h.object===floorMesh){const p=new THREE.Vector3();renderer.xr.getCamera().getWorldPosition(p);rig.position.x+=h.point.x-p.x;rig.position.z+=h.point.z-p.z;vrPanel.m.visible=false;}}
+function rotateRig(a){const p=new THREE.Vector3();renderer.xr.getCamera().getWorldPosition(p);rig.position.sub(p).applyAxisAngle(UP,a).add(p);rig.rotation.y+=a;}
+let turned=false;
+function vrTick(dt){const s=renderer.xr.getSession();if(!s)return;const q=new THREE.Quaternion();renderer.xr.getCamera().getWorldQuaternion(q);
+ const fwd=new THREE.Vector3(0,0,-1).applyQuaternion(q);fwd.y=0;fwd.normalize();const right=new THREE.Vector3(-fwd.z,0,fwd.x);
+ for(const src of s.inputSources){const gp=src.gamepad;if(!gp||gp.axes.length<4)continue;const ax=gp.axes[2],ay=gp.axes[3];
+  if(src.handedness==='right'){if(Math.abs(ax)>.6){if(!turned){rotateRig(-Math.sign(ax)*Math.PI/6);turned=true;}}else turned=false;}
+  else if(Math.abs(ax)>.15||Math.abs(ay)>.15){rig.position.addScaledVector(fwd,-ay*dt*1.5).addScaledVector(right,ax*dt*1.5);}}
+ marker.visible=false;for(const c of ctrls){const h=ctrlHit(c);if(h&&(h.object===ground||h.object===floorMesh)){marker.position.set(h.point.x,h.point.y+.02,h.point.z);marker.visible=true;break;}}}
+renderer.xr.addEventListener('sessionstart',()=>{controls.enabled=false;camT=null;clearTimers();select(null);
+ rig.position.set(0,0,5.5);rig.rotation.set(0,0,0);inner.intensity=3;
+ setTimeout(()=>{drawPanel('Қош келдіңіз! · Welcome','Киіз үйге кіріңіз · Enter the yurt',null,'Trigger at a part of the yurt — information and phraseology. Trigger at the ground — teleport. Left stick — walk. Right stick — turn. Grip — disassemble / assemble. Walk through the door to see the tör and the hearth.',[]);showPanel();},400);});
+renderer.xr.addEventListener('sessionend',()=>{controls.enabled=true;vrPanel.m.visible=false;marker.visible=false;rig.position.set(0,0,0);rig.rotation.set(0,0,0);
+ camera.position.copy(HOME.p);controls.target.copy(HOME.t);setView('out');});
+
+/* ---------- phraseology page ---------- */
+$('phrTables').innerHTML=ORDER.filter(k=>INFO[k].phr.length).map(k=>{const d=INFO[k];
+ return `<h2>${d.kz} · ${d.lat} <small style="font-weight:400;color:var(--muted)">(${d.en})</small></h2><table><tr><th>Қазақша</th><th>Transliteration</th><th>Meaning</th></tr>${d.phr.map(p=>`<tr><td class="kz">${p[0]}</td><td><i>${p[1]}</i></td><td>${p[2]}</td></tr>`).join('')}</table>`;}).join('');
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('on',x===b));
+ document.querySelectorAll('.page').forEach(p=>p.classList.toggle('on',p.id===b.dataset.page));resize();});
+
+/* ---------- loop ---------- */
+function resize(){const w=canvas.clientWidth,h=canvas.clientHeight;if(!w||!h)return;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
+new ResizeObserver(resize).observe(canvas);resize();
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const clock=new THREE.Clock();
+renderer.setAnimationLoop(()=>{const dt=Math.min(clock.getDelta(),.05);
+ for(const k in parts){const p=parts[k],d=p.target-p.t;p.t+=Math.sign(d)*Math.min(Math.abs(d),dt*1.3);const e=ease(p.t);
+  p.group.position.copy(p.offset).multiplyScalar(e);if(p.scale){const s=1+(p.scale-1)*e;p.group.scale.set(s,1,s);}}
+ if(renderer.xr.isPresenting){vrTick(dt);renderer.render(scene,camera);return;}
+ if(camT){camT.k=Math.min(1,camT.k+dt/camT.d);const e=ease(camT.k);camera.position.lerpVectors(camT.p0,camT.p1,e);controls.target.lerpVectors(camT.t0,camT.t1,e);
+  if(camT.k>=1){const f=camT.done;camT=null;f&&f();}}
+ controls.update();renderer.render(scene,camera);});
+</script>
+</body>
+</html>
