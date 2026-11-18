@@ -118,7 +118,6 @@ import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 import {VRButton} from 'three/addons/webxr/VRButton.js';
 import {XRControllerModelFactory} from 'three/addons/webxr/XRControllerModelFactory.js';
-import {StereoEffect} from 'three/addons/effects/StereoEffect.js';
 
 /* ================= TEXTS (kz / ru / en) ================= */
 const T={
@@ -286,7 +285,13 @@ const canvas=document.getElementById('c');
 const renderer=new THREE.WebGLRenderer({canvas,antialias:true});
 renderer.setPixelRatio(Math.min(devicePixelRatio,2));
 renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
-const stereo=new StereoEffect(renderer);stereo.setEyeSeparation(.064);
+const sCam=new THREE.StereoCamera();sCam.eyeSep=.064;const sSize=new THREE.Vector2();
+function stereoRender(){renderer.getSize(sSize);const w=sSize.x,h=sSize.y;camera.updateMatrixWorld();
+ if(h>w){renderer.render(scene,camera);return;} // phone vertical: one full screen
+ sCam.aspect=.5;sCam.update(camera);renderer.setScissorTest(true);
+ const eyes=[[0,0,w/2,h,sCam.cameraL],[w/2,0,w/2,h,sCam.cameraR]];
+ for(const[x,y,ew,eh,c]of eyes){renderer.setScissor(x,y,ew,eh);renderer.setViewport(x,y,ew,eh);renderer.render(scene,c);}
+ renderer.setScissorTest(false);renderer.setViewport(0,0,w,h);}
 const scene=new THREE.Scene();
 scene.background=new THREE.Color(0xbfe3f5);scene.fog=new THREE.Fog(0xbfe3f5,35,90);
 const camera=new THREE.PerspectiveCamera(45,1,0.05,200);
@@ -478,7 +483,6 @@ function onOri(e){if(e.alpha==null)return;const D=THREE.MathUtils.DEG2RAD;eul.se
 async function enterCB(){
  try{if(window.DeviceOrientationEvent&&typeof DeviceOrientationEvent.requestPermission==='function')await DeviceOrientationEvent.requestPermission();}catch(e){}
  try{await document.documentElement.requestFullscreen?.();}catch(e){}
- try{await screen.orientation?.lock?.('landscape');}catch(e){}
  select(null);clearTimers();camT=null;stopRotate();
  if(exploded){ASM.forEach(k=>parts[k].target=0);exploded=false;$('bExp').classList.remove('on');}
  cb=true;document.body.classList.add('cb');gyro=false;yawInit=false;yaw=0;pitch=0;window.addEventListener('deviceorientation',onOri);
@@ -529,7 +533,7 @@ renderer.setAnimationLoop(()=>{const dt=Math.min(clock.getDelta(),.05);
  for(const k in parts){const p=parts[k],d=p.target-p.t;p.t+=Math.sign(d)*Math.min(Math.abs(d),dt*1.3);const e=ease(p.t);
   p.group.position.copy(p.offset).multiplyScalar(e);if(p.scale){const s=1+(p.scale-1)*e;p.group.scale.set(s,1,s);}}
  if(renderer.xr.isPresenting){vrTick(dt);renderer.render(scene,camera);return;}
- if(cb){cbTick();stereo.render(scene,camera);return;}
+ if(cb){cbTick();stereoRender();return;}
  if(camT){camT.k=Math.min(1,camT.k+dt/camT.d);const e=ease(camT.k);camera.position.lerpVectors(camT.p0,camT.p1,e);controls.target.lerpVectors(camT.t0,camT.t1,e);
   if(camT.k>=1){const f=camT.done;camT=null;f&&f();}}
  controls.update();renderer.render(scene,camera);});
